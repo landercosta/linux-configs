@@ -1,10 +1,23 @@
-from libqtile import bar, layout, qtile, widget
+# Notes to run Qtile for first time:
+
+from libqtile import bar, layout, qtile, widget, hook
 from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
+#from os import path
+import os, subprocess
 
 mod = "mod4"
 terminal = "kitty"
+
+# Startup
+@hook.subscribe.startup_once
+def autostart():
+    processes = [
+        ['dropbox']
+    ]
+    for process in processes:
+        subprocess.Popen(process)
 
 keys = [
     # My shortcuts
@@ -12,11 +25,11 @@ keys = [
     #Key([], "XF86AudioLowerVolume", lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ -5%")),
     #Key([], "XF86AudioMute", lazy.spawn("pactl set-sink-mute @DEFAULT_SINK@ toggle")),
     Key(["control"], "space", lazy.spawn("rofi -show drun")),
+    Key([], "Print", lazy.spawn("flameshot gui")),
     Key(["control"], "equal", lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ +5%")),
     Key(["control"], "minus", lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ -5%")),
     Key(["control"], "0", lazy.spawn("pactl set-sink-mute @DEFAULT_SINK@ toggle")),
     Key(["control", "mod1"], "0", lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ 100%")),
-
 
     # A list of available commands that can be bound to keys can be found
     # at https://docs.qtile.org/en/latest/manual/config/lazy.html
@@ -153,7 +166,7 @@ screens = [
                 # NB Systray is incompatible with Wayland, consider using StatusNotifier instead
                 # widget.StatusNotifier(),
                 widget.Systray(),
-                widget.Clock(format="%Y-%m-%d %a %I:%M %p"),
+                #widget.Clock(format="%Y-%m-%d %a %I:%M %p"),
             ],
             24,
             # border_width=[2, 0, 2, 0],  # Draw top and bottom borders
