@@ -1,0 +1,28 @@
+- Instalar nerdfont
+- Instalar pacote de ícones
+- Atalhos do flameshot
+- Compactação de arquivos
+- Configurar widgets de volume, notificações
+- Motivação a cada 30min
+- Tarefas na barra
+- Configurar qtile
+- Descobrir como salvar sessão
+- Procurar forma de notificação do qtile ou usar algo como dunst
+- Desligar a tela com falta de uso
+- Customizar rofi youtube.com/watch?v=v8w1i3wAKiw
+- Customizar greeter
+- Drivers kitty opengl (ver erro ao rodar kitty pelo terminal)
+- Customizar kitty
+- Configurar neovim
+- Procurar sobre shell e escolher qual usar
+- Atualizar no git todas as configurações (configQtile, tasksQtile, outros)
+
+
+## Arquivos que vão para a configuração
+- configQtile: ~/.config/qtile/config.py
+- bashrc: ~/.bashrc
+- kitty config: ~/.config/kitty/kitty.conf
+- picom config: ~/.config/picom/picom.conf
+
+# Posteriores
+- Configurar picom
