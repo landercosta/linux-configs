@@ -1,9 +1,6 @@
-# Notes to run Qtile for first time:
-
 from libqtile import bar, layout, qtile, widget, hook
 from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
-from libqtile.utils import guess_terminal
 #from os import path
 import os, subprocess
 
@@ -14,17 +11,15 @@ terminal = "kitty"
 @hook.subscribe.startup_once
 def autostart():
     processes = [
-        ['dropbox']
+        ["dropbox"],
+        ["picom"]
     ]
     for process in processes:
         subprocess.Popen(process)
 
 keys = [
     # My shortcuts
-    #Key([], "XF86AudioRaiseVolume", lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ +5%")),
-    #Key([], "XF86AudioLowerVolume", lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ -5%")),
-    #Key([], "XF86AudioMute", lazy.spawn("pactl set-sink-mute @DEFAULT_SINK@ toggle")),
-    Key(["control"], "space", lazy.spawn("rofi -show drun")),
+    Key([mod], "m", lazy.spawn("rofi -show drun")),
     Key([], "Print", lazy.spawn("flameshot gui")),
     Key(["control"], "equal", lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ +5%")),
     Key(["control"], "minus", lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ -5%")),
@@ -98,7 +93,7 @@ for vt in range(1, 8):
     )
 
 
-groups = [Group(i) for i in "123456789"]
+groups = [Group(i) for i in "1234567890"]
 
 for i in groups:
     keys.extend(
@@ -124,14 +119,21 @@ for i in groups:
         ]
     )
 
+layout_theme = {
+    "border_width": 3,
+    "margin": 10,
+    "border_focus": "#7722FF",
+    "border_normal": "#CCCCCC"
+}
+
 layouts = [
-    layout.Columns(border_focus_stack=["#d75f5f", "#8f3d3d"], border_width=4),
-    layout.Max(),
+    layout.Columns(**layout_theme)
+    # layout.Max(),
     # Try more layouts by unleashing below layouts.
     # layout.Stack(num_stacks=2),
     # layout.Bsp(),
-    layout.Matrix(),
-    # layout.MonadTall(),
+    # layout.Matrix(),
+    # layout.MonadTall(**layout_theme),
     # layout.MonadWide(),
     # layout.RatioTile(),
     # layout.Tile(),
@@ -151,9 +153,9 @@ screens = [
     Screen(
         wallpaper="~/pictures/background.jpg",
         wallpaper_mode="fill",
-        bottom=bar.Bar(
+        top=bar.Bar(
             [
-                widget.CurrentLayout(),
+                # widget.CurrentLayout(),
                 widget.GroupBox(),
                 widget.Prompt(),
                 widget.WindowName(),
@@ -165,6 +167,7 @@ screens = [
                 ),
                 # NB Systray is incompatible with Wayland, consider using StatusNotifier instead
                 # widget.StatusNotifier(),
+                #widget.Volume(emoji=True), 
                 widget.Systray(),
                 #widget.Clock(format="%Y-%m-%d %a %I:%M %p"),
             ],
