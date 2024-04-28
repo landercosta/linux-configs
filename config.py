@@ -16,6 +16,18 @@ def autostart():
     ]
     for process in processes:
         subprocess.Popen(process)
+    lazy.hide_show_bar()
+
+@lazy.window.function
+def toprevgroup(window):
+    n = window.group.get_previous_group().name
+    window.togroup(n, switch_group=True)
+
+
+@lazy.window.function
+def tonextgroup(window):
+    n = window.group.get_next_group().name
+    window.togroup(n, switch_group=True)
 
 keys = [
     # My shortcuts
@@ -25,6 +37,7 @@ keys = [
     Key(["control"], "minus", lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ -5%")),
     Key(["control"], "0", lazy.spawn("pactl set-sink-mute @DEFAULT_SINK@ toggle")),
     Key(["control", "mod1"], "0", lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ 100%")),
+    Key([mod], "period", lazy.hide_show_bar(), desc="Hides the bar"),
 
     # A list of available commands that can be bound to keys can be found
     # at https://docs.qtile.org/en/latest/manual/config/lazy.html
@@ -57,9 +70,13 @@ keys = [
         lazy.layout.toggle_split(),
         desc="Toggle between split and unsplit sides of stack",
     ),
-    # Move in desktops
-    Key([mod, "mod1"], "l", lazy.screen.next_group()),
-    Key([mod, "mod1"], "h", lazy.screen.prev_group()),
+    # Move through desktops
+    Key([mod], "bracketright", lazy.screen.next_group()),
+    Key([mod], "bracketleft", lazy.screen.prev_group()),
+    Key([mod, "mod1"], "bracketright", lazy.screen.next_group(skip_empty=True)),
+    Key([mod, "mod1"], "bracketleft", lazy.screen.prev_group(skip_empty=True)),
+    Key([mod, "shift"], "bracketright", tonextgroup()),
+    Key([mod, "shift"], "bracketleft", toprevgroup()),
 
 
 
@@ -92,7 +109,7 @@ for vt in range(1, 8):
         )
     )
 
-
+# Virtual Desktops
 groups = [Group(i) for i in "1234567890"]
 
 for i in groups:
@@ -127,19 +144,21 @@ layout_theme = {
 }
 
 layouts = [
-    layout.Columns(**layout_theme)
-    # layout.Max(),
+    layout.Columns(**layout_theme),
+    #layout.Floating(**layout_theme),
+    #layout.Max(),
     # Try more layouts by unleashing below layouts.
+    #layout.Stack(),
     # layout.Stack(num_stacks=2),
-    # layout.Bsp(),
-    # layout.Matrix(),
-    # layout.MonadTall(**layout_theme),
-    # layout.MonadWide(),
-    # layout.RatioTile(),
-    # layout.Tile(),
-    # layout.TreeTab(),
-    # layout.VerticalTile(),
-    # layout.Zoomy(),
+    #layout.Bsp(),
+    #layout.Matrix(**layout_theme),
+    #layout.MonadTall(**layout_theme),
+    #layout.MonadWide(),
+    #layout.RatioTile(),
+    #layout.Tile(),
+    #layout.TreeTab(),
+    #layout.VerticalTile(),
+    #layout.Zoomy(),
 ]
 
 widget_defaults = dict(
@@ -155,7 +174,7 @@ screens = [
         wallpaper_mode="fill",
         top=bar.Bar(
             [
-                # widget.CurrentLayout(),
+                widget.CurrentLayout(),
                 widget.GroupBox(),
                 widget.Prompt(),
                 widget.WindowName(),
@@ -167,7 +186,7 @@ screens = [
                 ),
                 # NB Systray is incompatible with Wayland, consider using StatusNotifier instead
                 # widget.StatusNotifier(),
-                #widget.Volume(emoji=True), 
+                #widget.Volume(emoji=True),
                 widget.Systray(),
                 #widget.Clock(format="%Y-%m-%d %a %I:%M %p"),
             ],
