@@ -70,15 +70,6 @@ keys = [
         lazy.layout.toggle_split(),
         desc="Toggle between split and unsplit sides of stack",
     ),
-    # Move through desktops
-    Key([mod], "bracketright", lazy.screen.next_group()),
-    Key([mod], "bracketleft", lazy.screen.prev_group()),
-    Key([mod, "mod1"], "bracketright", lazy.screen.next_group(skip_empty=True)),
-    Key([mod, "mod1"], "bracketleft", lazy.screen.prev_group(skip_empty=True)),
-    Key([mod, "shift"], "bracketright", tonextgroup()),
-    Key([mod, "shift"], "bracketleft", toprevgroup()),
-
-
 
     Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
     # Toggle between different layouts as defined below
@@ -110,31 +101,36 @@ for vt in range(1, 8):
     )
 
 # Virtual Desktops
-groups = [Group(i) for i in "1234567890"]
+groups = []
+
+group_names = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "minus", "equal"]
+
+group_labels = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "="]
+
+for i in range(len(group_names)):
+    groups.append(
+        Group(
+            name=group_names[i],
+            label=group_labels[i],
+        ))
 
 for i in groups:
-    keys.extend(
-        [
-            # mod1 + group number = switch to group
-            Key(
-                [mod],
-                i.name,
-                lazy.group[i.name].toscreen(),
-                desc="Switch to group {}".format(i.name),
-            ),
-            # mod1 + shift + group number = switch to & move focused window to group
-            Key(
-                [mod, "shift"],
-                i.name,
-                lazy.window.togroup(i.name, switch_group=True),
-                desc="Switch to & move focused window to group {}".format(i.name),
-            ),
-            # Or, use below if you prefer not to switch to that group.
-            # # mod1 + shift + group number = move focused window to group
-            # Key([mod, "shift"], i.name, lazy.window.togroup(i.name),
-            #     desc="move focused window to group {}".format(i.name)),
-        ]
-    )
+    keys.extend([
+	# mod1 + group number = switch to group
+	Key([mod], i.name, lazy.group[i.name].toscreen(), desc="Switch to group {}".format(i.name)),
+	# mod1 + shift + group number = switch to & move focused window to group
+	Key([mod, "shift"], i.name, lazy.window.togroup(i.name, switch_group=True), desc="Switch to & move focused window to group {}".format(i.name)),
+	# Or, use below if you prefer not to switch to that group.
+	# mod1 + shift + group number = move focused window to group
+	# Key([mod, "shift"], i.name, lazy.window.togroup(i.name), desc="move focused window to group {}".format(i.name)),
+    	# Key([mod, "shift"], i.name, lazy.window.toscreen(i.name), desc="Move focused window to new group."),
+    	Key([mod], "bracketright", lazy.screen.next_group(), desc="Move to next group."),
+	Key([mod], "bracketleft", lazy.screen.prev_group(), desc="Move to previous group."),
+	Key([mod, "mod1"], "bracketright", lazy.screen.next_group(skip_empty=True), desc="Move to next non empty group."),
+	Key([mod, "mod1"], "bracketleft", lazy.screen.prev_group(skip_empty=True), desc="Move to previous non empty group."),
+	Key([mod, "shift"], "bracketright", tonextgroup(), desc="Move focused window to next group."),
+	Key([mod, "shift"], "bracketleft", toprevgroup(), desc="Move focused window to previous group."),
+    ])
 
 layout_theme = {
     "border_width": 3,
