@@ -1,21 +1,36 @@
-- Instalar nerdfont
+## Tarefas Qtile
+
+- Desligar tela com falta de uso
+- Bloquear tela na falta de uso
+- Atualizar no git todas as configurações (configQtile, tasksQtile, outros)
+- Nerd font
+- Compactação de arquivos
+- Atualizar no git as configurações do Qtile
+
+## Tarefas posteriores
+- Configurar qtile
 - Instalar pacote de ícones
 - Atalhos do flameshot
-- Compactação de arquivos
 - Configurar widgets de volume, notificações
 - Motivação a cada 30min
-- Tarefas na barra
-- Configurar qtile
 - Descobrir como salvar sessão
 - Procurar forma de notificação do qtile ou usar algo como dunst
-- Desligar a tela com falta de uso
-- Customizar rofi youtube.com/watch?v=v8w1i3wAKiw
-- Customizar greeter
 - Drivers kitty opengl (ver erro ao rodar kitty pelo terminal)
-- Customizar kitty
-- Configurar neovim
+- Configurar neovim https://www.youtube.com/playlist?list=PLsz00TDipIffreIaUNk64KxTIkQaGguqn
 - Procurar sobre shell e escolher qual usar
-- Atualizar no git todas as configurações (configQtile, tasksQtile, outros)
+- Configurar/customizar picom
+
+- Customizar rofi https://www.youtube.com/watch?v=v8w1i3wAKiw
+- Customizar slick greeter
+- Cores do kitty ou WezTerm
+- Cores do vim/neovim
+- Cores do Qtile na configuração
+
+## Tarefas de algum dia
+- Tarefas na barra
+
+
+
 
 
 ## Arquivos que vão para a configuração
@@ -23,6 +38,3 @@
 - bashrc: ~/.bashrc
 - kitty config: ~/.config/kitty/kitty.conf
 - picom config: ~/.config/picom/picom.conf
-
-# Posteriores
-- Configurar picom
