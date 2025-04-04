@@ -1,10 +1,8 @@
 ## Tarefas Qtile
 
+- Montar automaticamente discos e pendrives
 - Desligar tela com falta de uso
 - Bloquear tela na falta de uso
-- Atualizar no git todas as configurações (configQtile, tasksQtile, outros)
-- Nerd font
-- Compactação de arquivos
 - Atualizar no git as configurações do Qtile
 
 ## Tarefas posteriores
@@ -12,10 +10,8 @@
 - Instalar pacote de ícones
 - Atalhos do flameshot
 - Configurar widgets de volume, notificações
-- Motivação a cada 30min
 - Descobrir como salvar sessão
 - Procurar forma de notificação do qtile ou usar algo como dunst
-- Drivers kitty opengl (ver erro ao rodar kitty pelo terminal)
 - Configurar neovim https://www.youtube.com/playlist?list=PLsz00TDipIffreIaUNk64KxTIkQaGguqn
 - Procurar sobre shell e escolher qual usar
 - Configurar/customizar picom
