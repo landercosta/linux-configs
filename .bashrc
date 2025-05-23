@@ -1,16 +1,15 @@
-#
-# ~/.bashrc
-#
-
-# If not running interactively, don't do anything
-[[ $- != *i* ]] && return
-
-alias ls='ls --color=auto'
-alias grep='grep --color=auto'
-PS1='[\u@\h \W]\$ '
+# My functions
+changeTitleTab(){
+  (flatpak run org.wezfurlong.wezterm cli set-tab-title "$1")
+  # (wezterm cli set-tab-title "$1")
+}
 
 # My alias
-# alias zutasks
-alias zutasks="cd ~/Dropbox/zuTasks;python3 zuTasks.py"
-alias configQtile="nvim ~/.config/qtile/config.py"
-alias reloadQtile="qtile cmd-obj -o cmd -f reload_config"
+alias wezterm='flatpak run org.wezfurlong.wezterm'
+# alias nvim='flatpak run io.neovim.nvim'
+alias estudo="cd ~/Dropbox/zuTasks/estudoZuTasks;python3 zuTasks.py"
+alias exer="cd ~/Dropbox/zuTasks/exercZuTasks;python3 zuTasks.py"
+alias grumeiro="cd ~/Dropbox/zuTasks/grumeiroZuTasks;python3 zuTasks.py"
+alias lazer="cd ~/Dropbox/zuTasks/lazerZuTasks;python3 zuTasks.py"
+alias organiza="cd ~/Dropbox/zuTasks/orgZuTasks;python3 zuTasks.py"
+alias tarefas="cd ~/Dropbox/zuTasks/tarefasZuTasks;python3 zuTasks.py"
