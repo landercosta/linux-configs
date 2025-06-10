@@ -4,12 +4,27 @@ changeTitleTab(){
   # (wezterm cli set-tab-title "$1")
 }
 
-# My alias
-alias wezterm='flatpak run org.wezfurlong.wezterm'
-# alias nvim='flatpak run io.neovim.nvim'
-alias estudo="cd ~/Dropbox/zuTasks/estudoZuTasks;python3 zuTasks.py"
-alias exer="cd ~/Dropbox/zuTasks/exercZuTasks;python3 zuTasks.py"
-alias grumeiro="cd ~/Dropbox/zuTasks/grumeiroZuTasks;python3 zuTasks.py"
-alias lazer="cd ~/Dropbox/zuTasks/lazerZuTasks;python3 zuTasks.py"
-alias organiza="cd ~/Dropbox/zuTasks/orgZuTasks;python3 zuTasks.py"
-alias tarefas="cd ~/Dropbox/zuTasks/tarefasZuTasks;python3 zuTasks.py"
+zuTasksOpen(){
+  changeTitleTab "$1"
+  cd ~/Dropbox/zuTasks/${1}ZuTasks
+  python3 zuTasks.py
+}
+
+contatos(){ zuTasksOpen contatos; }
+estudo(){ zuTasksOpen estudo; }
+exer(){ zuTasksOpen exer; }
+grumeiro(){ zuTasksOpen grumeiro; }
+lazer(){ zuTasksOpen lazer; }
+organiza(){ zuTasksOpen organiza; }
+tarefas(){ zuTasksOpen tarefas; }
+
+allTasks(){
+  flatpak run org.wezfurlong.wezterm cli spawn -- bash -ic "organiza"
+  flatpak run org.wezfurlong.wezterm cli spawn -- bash -ic "tarefas"
+  flatpak run org.wezfurlong.wezterm cli spawn -- bash -ic "estudo"
+  flatpak run org.wezfurlong.wezterm cli spawn -- bash -ic "exer"
+  flatpak run org.wezfurlong.wezterm cli spawn -- bash -ic "grumeiro"
+  flatpak run org.wezfurlong.wezterm cli spawn -- bash -ic "lazer"
+  flatpak run org.wezfurlong.wezterm cli spawn -- bash -ic "contatos"
+  flatpak run org.wezfurlong.wezterm cli kill-pane
+}
